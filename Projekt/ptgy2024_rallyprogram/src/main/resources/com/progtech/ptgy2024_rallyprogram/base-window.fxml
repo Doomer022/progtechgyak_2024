@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progtech.ptgy2024_rallyprogram.ProgramController">
    <children>
+      <VBox fx:id="itemListBox" maxHeight="350.0" maxWidth="400.0" />
       <AnchorPane layoutY="350.0" minHeight="50.0" minWidth="400.0">
          <children>
             <ImageView fitHeight="50.0" fitWidth="400.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
@@ -32,10 +32,5 @@
                </image>
             </ImageView>
          </children></AnchorPane>
-      <ScrollPane maxWidth="400.0" prefHeight="350.0" prefWidth="400.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-      </ScrollPane>
    </children>
 </AnchorPane>
