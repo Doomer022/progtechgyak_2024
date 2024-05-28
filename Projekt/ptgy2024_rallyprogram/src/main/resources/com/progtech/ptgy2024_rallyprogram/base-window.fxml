@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progtech.ptgy2024_rallyprogram.ProgramController">
    <children>
-      <VBox fx:id="itemListBox" maxHeight="350.0" maxWidth="400.0" />
+      <ScrollPane fx:id="itemScrollPane" prefHeight="350.0" prefWidth="400.0">
+         <content>
+            <VBox fx:id="itemListBox" prefHeight="350.0" prefWidth="375.0" />
+         </content>
+      </ScrollPane>
       <AnchorPane layoutY="350.0" minHeight="50.0" minWidth="400.0">
          <children>
             <ImageView fitHeight="50.0" fitWidth="400.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/label_bg.png" />
                </image></ImageView>
-            <ImageView fx:id="countryButton" fitHeight="40.0" fitWidth="40.0" layoutX="112.5" layoutY="5.0" onMouseEntered="#onCountryButtonMouseEnter" onMouseExited="#onCountryButtonMouseExit" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="countryButton" fitHeight="40.0" fitWidth="40.0" layoutX="112.5" layoutY="5.0" onMouseClicked="#onCountryButtonClicked" onMouseEntered="#onCountryButtonMouseEnter" onMouseExited="#onCountryButtonMouseExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/hungary.png" />
                </image></ImageView>
-            <ImageView fx:id="stageButton" fitHeight="40.0" fitWidth="40.0" layoutX="162.5" layoutY="5.0" onMouseEntered="#onStageButtonMouseEnter" onMouseExited="#onStageButtonMouseExit" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="stageButton" fitHeight="40.0" fitWidth="40.0" layoutX="162.5" layoutY="5.0" onMouseClicked="#onStageButtonClicked" onMouseEntered="#onStageButtonMouseEnter" onMouseExited="#onStageButtonMouseExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/road.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="driverButton" fitHeight="40.0" fitWidth="40.0" layoutX="212.5" layoutY="5.0" onMouseEntered="#onDriverButtonMouseEnter" onMouseExited="#onDriverButtonMouseExit" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="driverButton" fitHeight="40.0" fitWidth="40.0" layoutX="212.5" layoutY="5.0" onMouseClicked="#onDriverButtonClicked" onMouseEntered="#onDriverButtonMouseEnter" onMouseExited="#onDriverButtonMouseExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/helmet.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="carButton" fitHeight="40.0" fitWidth="40.0" layoutX="262.5" layoutY="5.0" onMouseEntered="#onCarButtonMouseEnter" onMouseExited="#onCarButtonMouseExit" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="carButton" fitHeight="40.0" fitWidth="40.0" layoutX="262.5" layoutY="5.0" onMouseClicked="#onCarButtonClicked" onMouseEntered="#onCarButtonMouseEnter" onMouseExited="#onCarButtonMouseExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/car.png" />
                </image>

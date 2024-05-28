@@ -5,8 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="50.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progtech.ptgy2024_rallyprogram.ListItem">
+<AnchorPane fx:id="itemPane" onMouseClicked="#onButtonClicked" onMouseEntered="#onButtonEnter" onMouseExited="#onButtonExit" prefHeight="50.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progtech.ptgy2024_rallyprogram.ListItem">
    <children>
+      <ImageView fx:id="itemBackground" fitHeight="50.0" fitWidth="375.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="item_icon" fitHeight="50.0" fitWidth="50.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="item_label" text="Placeholder text" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
          <font>
