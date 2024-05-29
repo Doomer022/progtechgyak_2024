@@ -4,9 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 public class ProgramController {
@@ -17,12 +19,13 @@ public class ProgramController {
     public ImageView driverButton;
     public ImageView carButton;
 
+    public ScrollPane itemScrollPane;
     public VBox itemListBox;
 
     @FXML
     public void initialize()
     {
-        TestScrollPane(10);
+        //TestScrollPane(10, 0);
     }
 
     @FXML
@@ -49,6 +52,18 @@ public class ProgramController {
     @FXML
     public void onCarButtonMouseExit(MouseEvent e) { ButtonHover(carButton, false); }
 
+    @FXML
+    public void onCountryButtonClicked(MouseEvent e) { TestScrollPane(10, 0); }
+
+    @FXML
+    public void onStageButtonClicked(MouseEvent e) { TestScrollPane(10, 1); }
+
+    @FXML
+    public void onDriverButtonClicked(MouseEvent e) { TestScrollPane(10, 2); }
+
+    @FXML
+    public void onCarButtonClicked(MouseEvent e) { TestScrollPane(10, 3); }
+
 
     void ButtonHover(ImageView imgView, boolean hover) {
         if (hover) {
@@ -58,19 +73,28 @@ public class ProgramController {
         }
     }
 
-    void TestScrollPane(int listSize)
+    void TestScrollPane(int listSize, int category)
     {
+        ClearScrollData();
+
         for(int i = 0; i < listSize; i++)
         {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("list-item.fxml"));
                 Parent root = (Parent)loader.load();
                 ListItem itemControl = loader.getController();
-                itemControl.item_label.setText("Rally Program Teszt");
-                itemControl.item_icon.setImage(new Image(getClass().getResourceAsStream("img/hungary.png")));
+                itemControl.SetID(i);
+                itemControl.SetLabel("Rally Program Teszt");
+                itemControl.SetIcon(ProgramApplication.getInstance().GetCategoryImageURL(category));
                 itemListBox.getChildren().add(root);
             }
             catch (Exception ex) { ex.printStackTrace(); }
         }
+    }
+
+    void ClearScrollData()
+    {
+        itemListBox.getChildren().clear();
+        itemScrollPane.setVvalue(0);
     }
 }
