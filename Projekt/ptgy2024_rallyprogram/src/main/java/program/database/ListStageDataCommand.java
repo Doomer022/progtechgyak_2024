@@ -12,14 +12,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class ListRacerDataCommand implements CommandWithResult<ArrayList<String>> {
+public class ListStageDataCommand implements CommandWithResult<ArrayList<String>> {
 
-    private static final Logger log = LogManager.getLogger(ListRacerDataCommand.class);
+    private static final Logger log = LogManager.getLogger(ListStageDataCommand.class);
     private ArrayList<String> result = null;
-    private int racerID;
+    private int stageID;
 
-    public ListRacerDataCommand(int racerID) {
-        this.racerID = racerID;
+    public ListStageDataCommand(int stageID) {
+        this.stageID = stageID;
     }
 
     @Override
@@ -36,22 +36,23 @@ public class ListRacerDataCommand implements CommandWithResult<ArrayList<String>
         try {
             Connection connection = SQLiteConnection.getConnection();
             PreparedStatement stmt;
-            stmt = connection.prepareStatement("SELECT * FROM versenyzok WHERE id = ?;");
-            stmt.setInt(1, racerID);
+            stmt = connection.prepareStatement("SELECT * FROM palya WHERE id = ?;");
+            stmt.setInt(1, stageID);
             ResultSet rs = stmt.executeQuery();
 
 
             if (!rs.next()) {
-                log.error("A " + racerID + " versenyző nem található");
+                log.error("A " + stageID + " pálya nem található");
                 return;
             }
             result = new ArrayList<String>();
             result.add("Név:;" + rs.getString("nev"));
-            result.add("Nemzetiség:;" + rs.getString("nemzetiseg"));
-            result.add("Típus:;" + (rs.getInt("tipus") == 0 ? "sofőr" : "navigátor"));
+            result.add("Helyszín:;" + rs.getString("helyszin"));
+            result.add("Szakaszok száma:;" + (rs.getInt("szakaszok")));
+            result.add("Teljes hossz:;" + (rs.getInt("hossz")));
             rs.close();
             connection.close();
-            log.info("A versenyzők adatinak betöltése sikeres volt");
+            log.info("A pálya adatinak betöltése sikeres volt");
 
         }catch (SQLException e){
             log.error(e);
@@ -59,8 +60,8 @@ public class ListRacerDataCommand implements CommandWithResult<ArrayList<String>
     }
 
 //    public static void main(String[] args) {
-//        CommandWithResult<ArrayList<String>> command = new ListRacerDataCommand(3);
+//        CommandWithResult<ArrayList<String>> command = new ListStageDataCommand(1);
 //        command.execute();
-//        System.out.println(String.format("%d; %s; %s; %s", command.getResult().size(), command.getResult().get(0), command.getResult().get(1), command.getResult().get(2)));
+//        System.out.println(String.format("%s; %s; %s; %s", command.getResult().get(0), command.getResult().get(1), command.getResult().get(2), command.getResult().get(3)));
 //    }
 }
