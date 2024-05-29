@@ -10,6 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import program.database.ListAllRacerNamesCommand;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProgramController {
 
@@ -52,16 +57,16 @@ public class ProgramController {
     public void onCarButtonMouseExit(MouseEvent e) { ButtonHover(carButton, false); }
 
     @FXML
-    public void onCountryButtonClicked(MouseEvent e) { TestScrollPane(10, 0); }
+    public void onCountryButtonClicked(MouseEvent e) { ListEventsForScrollPane(); }
 
     @FXML
-    public void onStageButtonClicked(MouseEvent e) { TestScrollPane(10, 1); }
+    public void onStageButtonClicked(MouseEvent e) { ListForScrollPane(1); }
 
     @FXML
-    public void onDriverButtonClicked(MouseEvent e) { TestScrollPane(10, 2); }
+    public void onDriverButtonClicked(MouseEvent e) { ListForScrollPane(2); }
 
     @FXML
-    public void onCarButtonClicked(MouseEvent e) { TestScrollPane(10, 3); }
+    public void onCarButtonClicked(MouseEvent e) { ListForScrollPane(3); }
 
 
     void ButtonHover(ImageView imgView, boolean hover) {
@@ -72,17 +77,51 @@ public class ProgramController {
         }
     }
 
-    void TestScrollPane(int listSize, int category) {
+    void ListForScrollPane(int category) {
         ClearScrollData();
 
-        for(int i = 0; i < listSize; i++) {
+        Map<Integer, String> displayData = new HashMap<>();
+        switch(category)
+        {
+            case 1: break;
+            case 2:
+                ListAllRacerNamesCommand command = new ListAllRacerNamesCommand();
+                command.execute();
+                displayData = command.getResult();
+                break;
+            case 3: break;
+        }
+
+        for(Integer id : displayData.keySet()) {
             try{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("items/list-item.fxml"));
                 Parent root = (Parent)loader.load();
                 ListItem itemControl = loader.getController();
-                itemControl.SetID(i);
-                itemControl.SetLabel("Rally Program Teszt");
+                itemControl.SetID(id);
+                itemControl.SetCategoryID(category);
+                itemControl.SetLabel(displayData.get(id));
                 itemControl.SetIcon(ProgramApplication.getInstance().GetCategoryImageURL(category));
+                itemControl.SetIconStyle("-fx-effect: innershadow(gaussian, black, 20, 1, 1, 1)");
+                itemListBox.getChildren().add(root);
+            }
+            catch (Exception ex) { ex.printStackTrace(); }
+        }
+    }
+
+    void ListEventsForScrollPane()
+    {
+        ClearScrollData();
+
+        Map<String, String> displayData = new HashMap<>();
+        //COMMAND
+
+        for(String keyword : displayData.keySet()) {
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("items/list-item-event.fxml"));
+                Parent root = (Parent)loader.load();
+                EventListItem itemControl = loader.getController();
+                itemControl.SetEventID(keyword);
+                itemControl.SetIcon(ProgramApplication.getInstance().GetCategoryImageURL(0));
                 itemControl.SetIconStyle("-fx-effect: innershadow(gaussian, black, 20, 1, 1, 1)");
                 itemListBox.getChildren().add(root);
             }

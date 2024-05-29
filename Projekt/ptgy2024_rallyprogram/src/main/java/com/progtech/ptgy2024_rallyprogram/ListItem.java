@@ -5,6 +5,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import program.database.CommandWithResult;
+import program.database.ListRacerDataCommand;
+import program.database.exceptions.CommandNotExecutedException;
 
 public class ListItem {
 
@@ -19,6 +22,8 @@ public class ListItem {
     public void initialize() { itemBackground.setImage(new Image(getClass().getResourceAsStream("img/listitem_bg.png"))); }
 
     public void SetID(int id) { itemID = id; }
+
+    public void SetCategoryID(int id) { categoryID = id; }
 
     public void SetIcon(String route) {
         item_icon.setImage(new Image(getClass().getResourceAsStream(route)));
@@ -40,7 +45,17 @@ public class ListItem {
 
     @FXML
     public void onButtonClicked(MouseEvent e) throws Exception {
-        ProgramApplication.getInstance().GenerateInfoWindow("Test", new String[] { "1.", "2.", "3." }, new String[] { "Első", "Második", "Harmadik" });
+
+        switch(categoryID)
+        {
+            case 1: break;
+            case 2:
+                ListRacerDataCommand command = new ListRacerDataCommand(itemID);
+                command.execute();
+                ProgramApplication.getInstance().GenerateInfoWindow("Info", command.getResult());
+                break;
+            case 3: break;
+        }
     }
 
     void ButtonHover(ImageView imgView, boolean hover) {
@@ -50,5 +65,4 @@ public class ListItem {
             imgView.setStyle("");
         }
     }
-
 }

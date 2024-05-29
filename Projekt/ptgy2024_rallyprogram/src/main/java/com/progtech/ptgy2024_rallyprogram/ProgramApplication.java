@@ -9,12 +9,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ProgramApplication extends Application {
 
-
     private static final Logger log = LogManager.getLogger(ProgramApplication.class);
     private static ProgramApplication instance;
+    public FileManager fileManager;
     Scene lastDataScene;
 
     private String[] categoryImageURL = new String[] { "img/hungary.png", "img/road.png", "img/helmet.png", "img/car.png" };
@@ -27,7 +28,11 @@ public class ProgramApplication extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
+
         instance = new ProgramApplication();
+        fileManager = new FileManager();
+
+        stage.setOnCloseRequest(event -> { fileManager.SaveToFile(); });
     }
 
     public static ProgramApplication getInstance() { return instance; }
@@ -37,9 +42,8 @@ public class ProgramApplication extends Application {
         launch();
     }
 
-    public void GenerateInfoWindow(String title, String[] header, String[] content) throws Exception {
+    public void GenerateInfoWindow(String title, ArrayList<String> content) throws Exception {
         if(lastDataScene != null) { return; }
-        if(header.length != content.length) { return; }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("windows/info-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 300);
@@ -51,7 +55,7 @@ public class ProgramApplication extends Application {
         stage.setResizable(false);
 
         InfoWindow infoWindow = fxmlLoader.getController();
-        infoWindow.GenerateList(header, content);
+        infoWindow.GenerateList(content);
 
         stage.setOnCloseRequest(event -> { ClearLastScene(); });
     }

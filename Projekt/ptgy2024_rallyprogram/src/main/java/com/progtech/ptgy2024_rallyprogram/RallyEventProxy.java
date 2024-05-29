@@ -8,28 +8,17 @@ import java.util.concurrent.TimeUnit;
 
 public class RallyEventProxy implements IBaseNotification {
 
-    public List<String> subscribedEvents = new ArrayList<String>();
+    public List<String> subscribedEvents;
 
-    public RallyEventProxy()  {
-        try {
-            if(!new File("subbedevent.txt").exists()) { return; }
-            FileReader fr = new FileReader("subbedevent.txt");
-            BufferedReader br = new BufferedReader(fr);
-
-            String line;
-            while((line = br.readLine()) != null)  {
-                subscribedEvents.add(line);
-            }
-
-            br.close();
-            fr.close();
-        } catch(Exception e) { e.printStackTrace(); }
-
+    public RallyEventProxy() {
+        subscribedEvents = ProgramApplication.getInstance().fileManager.getSubbedEvents();
         CheckEvents();
     }
 
     public void CheckEvents()
     {
+        if(subscribedEvents == null) { return; }
+
         for(String event : subscribedEvents)
         {
             //FIND IF EVENT WITH IDENTIFIER EXISTS
@@ -50,19 +39,5 @@ public class RallyEventProxy implements IBaseNotification {
     public void sendNotify(String message) {
         RallyEventNotification newNotification = new RallyEventNotification();
         newNotification.sendNotify(message);
-    }
-
-    void WriteToFile() {
-        try {
-            FileWriter fw = new FileWriter("subbedevent.txt", false);
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            for(String event : subscribedEvents) {
-                bw.write(event); bw.newLine();
-            }
-
-            bw.close();
-            fw.close();
-        } catch(Exception e) { e.printStackTrace(); }
     }
 }
