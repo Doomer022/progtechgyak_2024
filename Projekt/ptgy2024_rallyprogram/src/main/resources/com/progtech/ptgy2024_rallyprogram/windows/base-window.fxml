@@ -15,25 +15,25 @@
          <children>
             <ImageView fitHeight="50.0" fitWidth="400.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/label_bg.png" />
+                  <Image url="@../img/label_bg.png" />
                </image></ImageView>
             <ImageView fx:id="countryButton" fitHeight="40.0" fitWidth="40.0" layoutX="112.5" layoutY="5.0" onMouseClicked="#onCountryButtonClicked" onMouseEntered="#onCountryButtonMouseEnter" onMouseExited="#onCountryButtonMouseExit" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/hungary.png" />
+                  <Image url="@../img/hungary.png" />
                </image></ImageView>
             <ImageView fx:id="stageButton" fitHeight="40.0" fitWidth="40.0" layoutX="162.5" layoutY="5.0" onMouseClicked="#onStageButtonClicked" onMouseEntered="#onStageButtonMouseEnter" onMouseExited="#onStageButtonMouseExit" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/road.png" />
+                  <Image url="@../img/road.png" />
                </image>
             </ImageView>
             <ImageView fx:id="driverButton" fitHeight="40.0" fitWidth="40.0" layoutX="212.5" layoutY="5.0" onMouseClicked="#onDriverButtonClicked" onMouseEntered="#onDriverButtonMouseEnter" onMouseExited="#onDriverButtonMouseExit" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/helmet.png" />
+                  <Image url="@../img/helmet.png" />
                </image>
             </ImageView>
             <ImageView fx:id="carButton" fitHeight="40.0" fitWidth="40.0" layoutX="262.5" layoutY="5.0" onMouseClicked="#onCarButtonClicked" onMouseEntered="#onCarButtonMouseEnter" onMouseExited="#onCarButtonMouseExit" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/car.png" />
+                  <Image url="@../img/car.png" />
                </image>
             </ImageView>
          </children></AnchorPane>

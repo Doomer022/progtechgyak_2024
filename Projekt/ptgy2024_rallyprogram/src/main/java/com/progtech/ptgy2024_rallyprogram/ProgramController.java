@@ -23,8 +23,7 @@ public class ProgramController {
     public VBox itemListBox;
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         //TestScrollPane(10, 0);
     }
 
@@ -73,27 +72,25 @@ public class ProgramController {
         }
     }
 
-    void TestScrollPane(int listSize, int category)
-    {
+    void TestScrollPane(int listSize, int category) {
         ClearScrollData();
 
-        for(int i = 0; i < listSize; i++)
-        {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("list-item.fxml"));
+        for(int i = 0; i < listSize; i++) {
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("items/list-item.fxml"));
                 Parent root = (Parent)loader.load();
                 ListItem itemControl = loader.getController();
                 itemControl.SetID(i);
                 itemControl.SetLabel("Rally Program Teszt");
                 itemControl.SetIcon(ProgramApplication.getInstance().GetCategoryImageURL(category));
+                itemControl.SetIconStyle("-fx-effect: innershadow(gaussian, black, 20, 1, 1, 1)");
                 itemListBox.getChildren().add(root);
             }
             catch (Exception ex) { ex.printStackTrace(); }
         }
     }
 
-    void ClearScrollData()
-    {
+    void ClearScrollData() {
         itemListBox.getChildren().clear();
         itemScrollPane.setVvalue(0);
     }

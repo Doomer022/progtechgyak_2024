@@ -9,11 +9,9 @@ public class InfoWindow {
 
     public VBox itemBox;
 
-    public void GenerateList(String[] header, String[] content) throws Exception
-    {
-        for(int i = 0; i < content.length; i++)
-        {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("info-window-item.fxml"));
+    public void GenerateList(String[] header, String[] content) throws Exception {
+        for(int i = 0; i < content.length; i++) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("items/info-window-item.fxml"));
             Parent root = loader.load();
             InfoWindowItem infoWindowItem = loader.getController();
             infoWindowItem.SetLabel(header[i] + " " + content[i]);

@@ -17,7 +17,7 @@ public class ProgramApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ProgramApplication.class.getResource("base-window.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ProgramApplication.class.getResource("windows/base-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 400);
         stage.setTitle("Rally Program");
         stage.setScene(scene);
@@ -32,12 +32,11 @@ public class ProgramApplication extends Application {
         launch();
     }
 
-    public void GenerateInfoWindow(String title, String[] header, String[] content) throws Exception
-    {
+    public void GenerateInfoWindow(String title, String[] header, String[] content) throws Exception {
         if(lastDataScene != null) { return; }
         if(header.length != content.length) { return; }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("info-window.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("windows/info-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 300);
         lastDataScene = scene;
         Stage stage = new Stage();

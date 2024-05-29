@@ -10,8 +10,7 @@ public class EventListItem extends ListItem {
     public void SetEventID(int _eventID) { eventID = _eventID; }
 
     @FXML
-    public void onEventButtonClicked(MouseEvent e)
-    {
+    public void onEventButtonClicked(MouseEvent e) {
         
     }
 }

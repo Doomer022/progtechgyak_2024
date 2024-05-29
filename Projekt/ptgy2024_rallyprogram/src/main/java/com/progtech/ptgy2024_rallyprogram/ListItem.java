@@ -20,18 +20,15 @@ public class ListItem {
 
     public void SetID(int id) { itemID = id; }
 
-    public void SetIcon(String route)
-    {
+    public void SetIcon(String route) {
         item_icon.setImage(new Image(getClass().getResourceAsStream(route)));
     }
 
-    public void SetLabel(String label)
-    {
+    public void SetLabel(String label) {
         item_label.setText(label);
     }
 
-    public void SetIconStyle(String style)
-    {
+    public void SetIconStyle(String style) {
         item_icon.setStyle(style);
     }
 
@@ -42,8 +39,7 @@ public class ListItem {
     public void onButtonExit(MouseEvent e) { ButtonHover(itemBackground, false); }
 
     @FXML
-    public void onButtonClicked(MouseEvent e) throws Exception
-    {
+    public void onButtonClicked(MouseEvent e) throws Exception {
         ProgramApplication.getInstance().GenerateInfoWindow("Test", new String[] { "1.", "2.", "3." }, new String[] { "Első", "Második", "Harmadik" });
     }
 
