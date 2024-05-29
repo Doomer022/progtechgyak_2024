@@ -1,8 +1,16 @@
 package com.progtech.ptgy2024_rallyprogram;
 
-import java.io.*;
+import program.database.CheckIfEventExistsCommand;
+import program.database.GetEventDateCommand;
+import program.database.GetEventNameCommand;
+
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -21,16 +29,27 @@ public class RallyEventProxy implements IBaseNotification {
 
         for(String event : subscribedEvents)
         {
-            //FIND IF EVENT WITH IDENTIFIER EXISTS
-            //GET TIMESTAMP FROM DATABASE
-            //GET EVENT NAME FROM DATABASE
+            CheckIfEventExistsCommand exists = new CheckIfEventExistsCommand(event);
+            exists.execute();
+            if(!exists.getResult()) { continue; }
 
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //PLACEHOLDER FOR EVENT TIMESTAMP
-            int dayDifference = (int)TimeUnit.DAYS.convert(timestamp.getTime() - System.currentTimeMillis(), TimeUnit.DAYS);
-            String eventName = "Eger Rally"; //PLACEHOLDER FOR EVENT NAME
+            GetEventDateCommand dateCommand = new GetEventDateCommand(event);
+            dateCommand.execute();
 
-            if(dayDifference <= 7) {
-                sendNotify("A következő event " + dayDifference + " nap múlva kerül megrendezésre: " + eventName);
+            GetEventNameCommand nameCommand = new GetEventNameCommand(event);
+            nameCommand.execute();
+
+            Timestamp timestamp = dateCommand.getResult();
+
+            LocalDateTime start = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp.getTime()), ZoneId.systemDefault()).truncatedTo(ChronoUnit.DAYS);
+            LocalDateTime end = LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault()).truncatedTo(ChronoUnit.DAYS);
+            Duration duration = Duration.between(end, start);
+
+            long dayDifference = duration.toDays();
+            String eventName = nameCommand.getResult();
+
+            if(dayDifference <= 7 && dayDifference >= 0) {
+                sendNotify("A következő esemény " + dayDifference + " nap múlva kerül megrendezésre: " + eventName);
             }
         }
     }

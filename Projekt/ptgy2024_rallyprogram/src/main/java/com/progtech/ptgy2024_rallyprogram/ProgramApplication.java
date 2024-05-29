@@ -16,6 +16,7 @@ public class ProgramApplication extends Application {
     private static final Logger log = LogManager.getLogger(ProgramApplication.class);
     private static ProgramApplication instance;
     public FileManager fileManager;
+    public RallyEventProxy proxy;
     Scene lastDataScene;
 
     private String[] categoryImageURL = new String[] { "img/hungary.png", "img/road.png", "img/helmet.png", "img/car.png" };
@@ -29,8 +30,9 @@ public class ProgramApplication extends Application {
         stage.show();
         stage.setResizable(false);
 
-        instance = new ProgramApplication();
+        instance = this;
         fileManager = new FileManager();
+        proxy = new RallyEventProxy();
 
         stage.setOnCloseRequest(event -> { fileManager.SaveToFile(); });
     }

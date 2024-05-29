@@ -6,8 +6,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import program.database.CommandWithResult;
+import program.database.ListCarDataCommand;
 import program.database.ListRacerDataCommand;
+import program.database.ListStageDataCommand;
 import program.database.exceptions.CommandNotExecutedException;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class ListItem {
 
@@ -46,15 +52,25 @@ public class ListItem {
     @FXML
     public void onButtonClicked(MouseEvent e) throws Exception {
 
+        CommandWithResult<ArrayList<String>> command;
+
         switch(categoryID)
         {
-            case 1: break;
-            case 2:
-                ListRacerDataCommand command = new ListRacerDataCommand(itemID);
+            case 1:
+                command = new ListStageDataCommand(itemID);
                 command.execute();
                 ProgramApplication.getInstance().GenerateInfoWindow("Info", command.getResult());
                 break;
-            case 3: break;
+            case 2:
+                command = new ListRacerDataCommand(itemID);
+                command.execute();
+                ProgramApplication.getInstance().GenerateInfoWindow("Info", command.getResult());
+                break;
+            case 3:
+                command = new ListCarDataCommand(itemID);
+                command.execute();
+                ProgramApplication.getInstance().GenerateInfoWindow("Info", command.getResult());
+                break;
         }
     }
 

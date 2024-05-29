@@ -10,7 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import program.database.ListAllRacerNamesCommand;
+import program.database.*;
+import program.database.exceptions.CommandNotExecutedException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,15 +82,25 @@ public class ProgramController {
         ClearScrollData();
 
         Map<Integer, String> displayData = new HashMap<>();
+        CommandWithResult<Map<Integer, String>> command;
+
         switch(category)
         {
-            case 1: break;
-            case 2:
-                ListAllRacerNamesCommand command = new ListAllRacerNamesCommand();
+            case 1:
+                command = new ListAllStageNamesCommand();
                 command.execute();
                 displayData = command.getResult();
                 break;
-            case 3: break;
+            case 2:
+                command = new ListAllRacerNamesCommand();
+                command.execute();
+                displayData = command.getResult();
+                break;
+            case 3:
+                command = new ListAllCarNamesCommand();
+                command.execute();
+                displayData = command.getResult();
+                break;
         }
 
         for(Integer id : displayData.keySet()) {
@@ -113,7 +124,9 @@ public class ProgramController {
         ClearScrollData();
 
         Map<String, String> displayData = new HashMap<>();
-        //COMMAND
+        ListAllEventNamesCommand command = new ListAllEventNamesCommand();
+        command.execute();
+        displayData = command.getResult();
 
         for(String keyword : displayData.keySet()) {
             try{
@@ -121,6 +134,7 @@ public class ProgramController {
                 Parent root = (Parent)loader.load();
                 EventListItem itemControl = loader.getController();
                 itemControl.SetEventID(keyword);
+                itemControl.SetLabel(displayData.get(keyword));
                 itemControl.SetIcon(ProgramApplication.getInstance().GetCategoryImageURL(0));
                 itemControl.SetIconStyle("-fx-effect: innershadow(gaussian, black, 20, 1, 1, 1)");
                 itemListBox.getChildren().add(root);

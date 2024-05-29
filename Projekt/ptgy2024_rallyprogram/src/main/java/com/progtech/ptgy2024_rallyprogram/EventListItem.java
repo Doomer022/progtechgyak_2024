@@ -15,6 +15,7 @@ public class EventListItem extends ListItem {
 
     @FXML
     public void onEventButtonClicked(MouseEvent e) {
+
         if(ProgramApplication.getInstance().fileManager.containsSubbedEvent(eventID)) {
             askForRemoval();
         } else { askForAddition(); }
@@ -24,7 +25,6 @@ public class EventListItem extends ListItem {
         Alert popup = new Alert(Alert.AlertType.CONFIRMATION);
         popup.setTitle("Esemény feliratkozás!");
         popup.setContentText("Szeretne emlékeztetőt helyezni erre az eseményre?");
-        popup.showAndWait();
 
         ButtonType okButton = new ButtonType("Igen");
         ButtonType cancelButton = new ButtonType("Nem");
@@ -40,7 +40,6 @@ public class EventListItem extends ListItem {
         Alert popup = new Alert(Alert.AlertType.CONFIRMATION);
         popup.setTitle("Esemény leiratkozás!");
         popup.setContentText("Szeretné az emlékeztetőt törölni erről az eseményről?");
-        popup.showAndWait();
 
         ButtonType okButton = new ButtonType("Igen");
         ButtonType cancelButton = new ButtonType("Nem");
