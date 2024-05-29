@@ -5,11 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class ProgramApplication extends Application {
 
+
+    private static final Logger log = LogManager.getLogger(ProgramApplication.class);
     private static ProgramApplication instance;
     Scene lastDataScene;
 
@@ -29,6 +33,7 @@ public class ProgramApplication extends Application {
     public static ProgramApplication getInstance() { return instance; }
 
     public static void main(String[] args) {
+        log.info("Program started");
         launch();
     }
 
